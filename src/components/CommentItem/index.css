@@ -45,83 +45,92 @@
 .light-blue {
   background-color: #0ea5e9;
 }
-
-.initial {
-  color: #ffffff;
-  font-family: 'Roboto';
-  font-size: 16px;
-  margin: 0;
-}
-
-.username-time-container {
+.li-container {
+  margin: 0px;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0px;
+}
+.name-comment-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0px;
+  padding: 0px;
+}
+.fist-letter {
+  width: 40px;
+  padding: 10px;
+  border-radius: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 12px;
+  margin: 0px;
 }
-
-.username {
+.fist-letter-para {
+  font-family: 'Roboto';
+  color: white;
+}
+.name-para {
+  margin-top: 1px;
+  margin-left: 5px;
+  font-family: 'Roboto';
+  font-size: 17px;
   color: #334155;
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0;
 }
-
-.time {
+.time-para {
+  margin-top: 1px;
+  margin-left: 10px;
+  font-family: 'Roboto';
+  font-size: 17px;
   color: #94a3b8;
-  font-family: 'Roboto';
-  font-size: 12px;
-  margin-left: 18px;
-  margin-top: 0;
-  margin-bottom: 0;
 }
-
-.comment {
+.name-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comment-para {
   color: #64748b;
   font-family: 'Roboto';
-  font-size: 14px;
+  margin-left: 40px;
+  font-size: 17px;
+  margin-top: 0px;
 }
-
-.buttons-container {
+.like-delete-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
 }
-
-.like-container {
-  display: flex;
-  align-items: center;
-}
-
-.button {
+.btn-like {
   background-color: transparent;
-  color: #7e858e;
-  font-family: 'Roboto';
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
+  border-width: 0px;
+  outline: none;
+  cursor: pointer;
+  margin-right: 60vw;
+  color: #94a3b8;
+}
+.Btn {
+  background-color: transparent;
+  border-width: 0px;
+  outline: none;
+  cursor: pointer;
+  margin-right: 60vw;
+  color: #0ea5e9;
+}
+.delete {
+  background-color: transparent;
+  border-width: 0px;
   outline: none;
   cursor: pointer;
 }
+.line {
+  width: 850px;
 
-.like-image {
-  height: 20px;
-  width: 20px;
-  margin-right: 8px;
-}
-
-.active {
-  color: #0ea5e9;
-}
-
-.delete {
-  height: 20px;
-  width: 20px;
-}
-
-.comment-line {
-  width: 100%;
-  border: 1px solid #dee0e3;
+  border: 1px solid #cbd2d9;
 }

@@ -1,8 +1,7 @@
 import {Component} from 'react'
-import {v4} from 'uuid'
+import {v4 as uuidv4} from 'uuid'
 
 import CommentItem from '../CommentItem'
-
 import './index.css'
 
 const initialContainerBackgroundClassNames = [
@@ -17,123 +16,110 @@ const initialContainerBackgroundClassNames = [
 
 class Comments extends Component {
   state = {
-    username: '',
-    comment: '',
-    commentsList: [],
+    inputName: '',
+    inputComment: '',
+    commentList: [],
   }
 
-  deleteComment = commentId => {
-    const {commentsList} = this.state
-    this.setState({
-      commentsList: commentsList.filter(comment => comment.id !== commentId),
-    })
+  onDeleteComment = id => {
+    const {commentList} = this.state
+
+    const newList = commentList.filter(eachFilter => eachFilter.id !== id)
+    this.setState({commentList: newList})
   }
 
-  toggleIsLiked = id => {
+  updateLikeButton = id => {
     this.setState(prevState => ({
-      commentsList: prevState.commentsList.map(eachComment => {
-        if (id === eachComment.id) {
-          return {...eachComment, isLiked: !eachComment.isLiked}
+      commentList: prevState.commentList.map(eachList => {
+        if (id === eachList.id) {
+          return {...eachList, isLiked: !eachList.isLiked}
         }
-        return eachComment
+        return eachList
       }),
     }))
   }
 
-  renderCommentsList = () => {
-    const {commentsList} = this.state
-    return commentsList.map(eachComment => (
-      <CommentItem
-        key={eachComment.id}
-        commentDetails={eachComment}
-        toggleIsLiked={this.toggleIsLiked}
-        deleteComment={this.deleteComment}
-      />
-    ))
+  onChangeName = event => {
+    this.setState({inputName: event.target.value})
   }
 
-  onAddComment = event => {
-    event.preventDefault()
-    const {username, comment} = this.state
+  onChangeComment = event => {
+    this.setState({inputComment: event.target.value})
+  }
 
-    const initialBackgroundColorClassName = `initial-container ${
+  onSubmitComment = event => {
+    event.preventDefault()
+    const {inputName, inputComment} = this.state
+
+    const colorName =
       initialContainerBackgroundClassNames[
         Math.ceil(
           Math.random() * initialContainerBackgroundClassNames.length - 1,
         )
       ]
-    }`
     const newComment = {
-      id: v4(),
-      username,
-      comment,
+      id: uuidv4(),
+      inputName,
+      inputComment,
       date: new Date(),
       isLiked: false,
-      initialClassName: initialBackgroundColorClassName,
+      colorName,
     }
 
     this.setState(prevState => ({
-      commentsList: [...prevState.commentsList, newComment],
-      username: '',
-      comment: '',
+      commentList: [...prevState.commentList, newComment],
+      inputName: '',
+      inputComment: '',
     }))
   }
 
-  onChangeComment = event => {
-    this.setState({
-      comment: event.target.value,
-    })
-  }
-
-  onChangeName = event => {
-    this.setState({
-      username: event.target.value,
-    })
-  }
-
   render() {
-    const {username, comment, commentsList} = this.state
-
+    const {inputName, inputComment, commentList} = this.state
     return (
-      <div className="comments-app-container">
-        <div className="comments-container">
-          <h1 className="app-heading">Comments</h1>
-          <div className="comments-inputs">
-            <form className="form" onSubmit={this.onAddComment}>
-              <p className="form-description">
-                Say something about 4.0 Technologies
-              </p>
-              <input
-                type="text"
-                className="name-input"
-                placeholder="Your Name"
-                value={username}
-                onChange={this.onChangeName}
-              />
-              <textarea
-                placeholder="Your Comment"
-                className="comment-input"
-                value={comment}
-                onChange={this.onChangeComment}
-                rows="6"
-              />
-              <button type="submit" className="add-button">
-                Add Comment
-              </button>
-            </form>
-            <img
-              className="image"
-              src="https://assets.ccbp.in/frontend/react-js/comments-app/comments-img.png"
-              alt="comments"
+      <div className="bg-container">
+        <h1 className="main-heading">Comments</h1>
+        <div className="sub-container">
+          <form className="form-container" onSubmit={this.onSubmitComment}>
+            <p className="input-para">Say something about 4.0 Technologies</p>
+            <input
+              className="name-input"
+              value={inputName}
+              type="text"
+              onChange={this.onChangeName}
+              placeholder="Your Name"
             />
-          </div>
-          <hr className="line" />
-          <p className="heading">
-            <span className="comments-count">{commentsList.length}</span>
-            Comments
-          </p>
-          <ul className="comments-list">{this.renderCommentsList()}</ul>
+            <textarea
+              className="input-comment"
+              rows="5"
+              placeholder="Your Comment"
+              onChange={this.onChangeComment}
+              value={inputComment}
+            />
+            <button className="btn" type="submit">
+              Add Comment
+            </button>
+          </form>
+          <img
+            className="main-image-resize"
+            src="https://assets.ccbp.in/frontend/react-js/comments-app/comments-img.png"
+            alt="comments"
+          />
         </div>
+        <hr className="line" />
+        <p className="heading">
+          <span className="comments-count">{commentList.length}</span>
+          Comments
+        </p>
+        <ul className="un-list-container">
+          {commentList.map(eachComment => (
+            <CommentItem
+              key={eachComment.id}
+              commentDetails={eachComment}
+              updateLikeButton={this.updateLikeButton}
+              onDeleteComment={this.onDeleteComment}
+            />
+          ))}
+        </ul>
       </div>
     )
   }
